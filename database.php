@@ -8,7 +8,7 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'portfolio_devops');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', ' root');
 define('DB_CHARSET', 'utf8mb4');
 
 // Configuration du site
@@ -37,7 +37,7 @@ function getDBConnection() {
         return $pdo;
     } catch (PDOException $e) {
         error_log("Erreur de connexion à la base de données: " . $e->getMessage());
-        die("Erreur de connexion à la base de données");
+        return null; // Retourner null au lieu de die()
     }
 }
 
@@ -46,6 +46,19 @@ function getDBConnection() {
  */
 function getPersonalInfo() {
     $pdo = getDBConnection();
+    if (!$pdo) {
+        // Données par défaut si pas de base de données
+        return [
+            'name' => 'Oumar Inf',
+            'title' => 'DevOps Engineer',
+            'email' => 'oum.inf2020@gmail.com',
+            'phone' => '+221 77 130 25 77',
+            'address' => 'Dakar, Senegal',
+            'linkedin_url' => 'https://linkedin.com/in/oumar-inf',
+            'photo_path' => 'foto.jpg',
+            'description' => 'DevOps Engineer orienté résultats avec plusieurs années d\'expérience, spécialisé dans l\'infrastructure cloud, l\'automatisation CI/CD et les solutions AgriTech innovantes.'
+        ];
+    }
     $stmt = $pdo->prepare("SELECT * FROM personal_info LIMIT 1");
     $stmt->execute();
     return $stmt->fetch();
@@ -56,6 +69,14 @@ function getPersonalInfo() {
  */
 function getStatistics() {
     $pdo = getDBConnection();
+    if (!$pdo) {
+        // Données par défaut si pas de base de données
+        return [
+            ['number' => '5+', 'label' => 'Années d\'expérience'],
+            ['number' => '50+', 'label' => 'Projets réalisés'],
+            ['number' => '100%', 'label' => 'Satisfaction client']
+        ];
+    }
     $stmt = $pdo->prepare("SELECT * FROM statistics WHERE is_active = 1 ORDER BY display_order ASC");
     $stmt->execute();
     return $stmt->fetchAll();
@@ -66,6 +87,14 @@ function getStatistics() {
  */
 function getLanguages() {
     $pdo = getDBConnection();
+    if (!$pdo) {
+        // Données par défaut si pas de base de données
+        return [
+            ['name' => 'Français', 'level' => 95],
+            ['name' => 'Anglais', 'level' => 85],
+            ['name' => 'Wolof', 'level' => 100]
+        ];
+    }
     $stmt = $pdo->prepare("SELECT * FROM languages WHERE is_active = 1 ORDER BY display_order ASC");
     $stmt->execute();
     return $stmt->fetchAll();
@@ -76,6 +105,29 @@ function getLanguages() {
  */
 function getSkills() {
     $pdo = getDBConnection();
+    if (!$pdo) {
+        // Données par défaut si pas de base de données
+        return [
+            'DevOps & Cloud' => [
+                'icon' => 'fas fa-cloud',
+                'items' => [
+                    ['name' => 'Docker', 'level' => 90],
+                    ['name' => 'Kubernetes', 'level' => 85],
+                    ['name' => 'AWS', 'level' => 88],
+                    ['name' => 'CI/CD', 'level' => 92]
+                ]
+            ],
+            'Développement' => [
+                'icon' => 'fas fa-code',
+                'items' => [
+                    ['name' => 'PHP', 'level' => 90],
+                    ['name' => 'Python', 'level' => 85],
+                    ['name' => 'JavaScript', 'level' => 80],
+                    ['name' => 'Bash', 'level' => 88]
+                ]
+            ]
+        ];
+    }
     $stmt = $pdo->prepare("
         SELECT sc.name as category_name, sc.icon as category_icon, sc.display_order as category_order,
                s.name as skill_name, s.level, s.display_order as skill_order
@@ -110,6 +162,17 @@ function getSkills() {
  */
 function getTechnologies() {
     $pdo = getDBConnection();
+    if (!$pdo) {
+        // Données par défaut si pas de base de données
+        return [
+            ['name' => 'Docker', 'icon' => 'fab fa-docker'],
+            ['name' => 'Kubernetes', 'icon' => 'fas fa-cube'],
+            ['name' => 'AWS', 'icon' => 'fab fa-aws'],
+            ['name' => 'PHP', 'icon' => 'fab fa-php'],
+            ['name' => 'Python', 'icon' => 'fab fa-python'],
+            ['name' => 'JavaScript', 'icon' => 'fab fa-js']
+        ];
+    }
     $stmt = $pdo->prepare("SELECT * FROM technologies WHERE is_active = 1 ORDER BY display_order ASC");
     $stmt->execute();
     return $stmt->fetchAll();
@@ -120,6 +183,28 @@ function getTechnologies() {
  */
 function getExperiences() {
     $pdo = getDBConnection();
+    if (!$pdo) {
+        // Données par défaut si pas de base de données
+        return [
+            [
+                'title' => 'DevOps Engineer',
+                'company' => 'AgriTech Solutions',
+                'start_date' => '2020-01-01',
+                'end_date' => null,
+                'is_current' => 1,
+                'achievements' => [
+                    'DevOps' => [
+                        'Mise en place de pipelines CI/CD',
+                        'Automatisation des déploiements'
+                    ],
+                    'Impact & Leadership' => [
+                        'Réduction de 50% du temps de déploiement',
+                        'Amélioration de la disponibilité à 99.9%'
+                    ]
+                ]
+            ]
+        ];
+    }
     $stmt = $pdo->prepare("SELECT * FROM experiences WHERE is_active = 1 ORDER BY display_order ASC");
     $stmt->execute();
     $experiences = $stmt->fetchAll();
@@ -149,6 +234,25 @@ function getExperiences() {
  */
 function getEducation() {
     $pdo = getDBConnection();
+    if (!$pdo) {
+        // Données par défaut si pas de base de données
+        return [
+            [
+                'title' => 'Master en Informatique',
+                'institution' => 'Université de Dakar',
+                'start_date' => '2018-01-01',
+                'end_date' => '2020-12-31',
+                'icon' => 'fas fa-graduation-cap'
+            ],
+            [
+                'title' => 'Certification AWS',
+                'institution' => 'Amazon Web Services',
+                'start_date' => '2021-06-01',
+                'end_date' => null,
+                'icon' => 'fas fa-certificate'
+            ]
+        ];
+    }
     $stmt = $pdo->prepare("SELECT * FROM education WHERE is_active = 1 ORDER BY display_order ASC");
     $stmt->execute();
     return $stmt->fetchAll();
@@ -159,6 +263,27 @@ function getEducation() {
  */
 function getProjects() {
     $pdo = getDBConnection();
+    if (!$pdo) {
+        // Données par défaut si pas de base de données
+        return [
+            [
+                'title' => 'Plateforme AgriTech',
+                'description' => 'Solution complète pour la gestion agricole avec IoT et analytics',
+                'technologies' => 'Docker, Kubernetes, Python, React',
+                'project_url' => 'https://example.com',
+                'github_url' => 'https://github.com',
+                'image_path' => ''
+            ],
+            [
+                'title' => 'Pipeline CI/CD',
+                'description' => 'Automatisation complète des déploiements avec monitoring',
+                'technologies' => 'Jenkins, Docker, AWS, Terraform',
+                'project_url' => 'https://example.com',
+                'github_url' => 'https://github.com',
+                'image_path' => ''
+            ]
+        ];
+    }
     $stmt = $pdo->prepare("SELECT * FROM projects WHERE is_active = 1 ORDER BY display_order ASC");
     $stmt->execute();
     return $stmt->fetchAll();
@@ -169,6 +294,11 @@ function getProjects() {
  */
 function saveContactMessage($name, $email, $subject, $message) {
     $pdo = getDBConnection();
+    if (!$pdo) {
+        // Si pas de base de données, on simule un succès
+        error_log("Contact message from $email: $subject");
+        return true;
+    }
     $stmt = $pdo->prepare("
         INSERT INTO contact_messages (name, email, subject, message, ip_address, user_agent) 
         VALUES (?, ?, ?, ?, ?, ?)
@@ -185,6 +315,15 @@ function saveContactMessage($name, $email, $subject, $message) {
  */
 function getSiteSettings() {
     $pdo = getDBConnection();
+    if (!$pdo) {
+        // Données par défaut si pas de base de données
+        return [
+            'site_title' => 'Portfolio DevOps Engineer',
+            'meta_description' => 'Portfolio d\'un DevOps Engineer spécialisé en cloud et automatisation',
+            'meta_keywords' => 'devops, cloud, aws, docker, kubernetes',
+            'analytics_id' => ''
+        ];
+    }
     $stmt = $pdo->prepare("SELECT setting_key, setting_value FROM site_settings");
     $stmt->execute();
     
@@ -201,6 +340,11 @@ function getSiteSettings() {
  */
 function logActivity($action, $description = '') {
     $pdo = getDBConnection();
+    if (!$pdo) {
+        // Si pas de base de données, on log juste dans les logs PHP
+        error_log("Activity: $action - $description");
+        return;
+    }
     $stmt = $pdo->prepare("
         INSERT INTO activity_logs (action, description, ip_address, user_agent) 
         VALUES (?, ?, ?, ?)

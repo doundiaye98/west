@@ -920,6 +920,25 @@ section {
     color: white;
 }
 
+.developer-credit {
+    font-size: 1rem;
+    color: #ffffff !important;
+    margin-top: 1.5rem;
+    text-align: center;
+    padding: 1rem;
+    border-top: 2px solid var(--primary-color);
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.developer-credit strong {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+}
+
 /* Theme Toggle Responsive */
 @media (max-width: 768px) {
     .theme-toggle {
