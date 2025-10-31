@@ -384,7 +384,7 @@ if ($_POST) {
             <div class="footer-content">
                 <div class="footer-text">
                     <p>&copy; <?php echo date('Y'); ?> Portfolio DevOps Engineer. Tous droits réservés.</p>
-                    <p style="color: red !important; font-size: 20px !important; font-weight: bold !important; background: yellow !important; padding: 10px !important;">DOUCODER A FAIT CE SITE</p>
+                    <p style="color: red !important; font-size: 20px !important; font-weight: bold !important; background: yellow !important; padding: 10px !important;">S2NTech A FAIT CE SITE</p>
                 </div>
                 <div class="footer-links">
                     <!-- Navigation links removed -->
