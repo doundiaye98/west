@@ -384,7 +384,7 @@ if ($_POST) {
             <div class="footer-content">
                 <div class="footer-text">
                     <p>&copy; <?php echo date('Y'); ?> Portfolio DevOps Engineer. Tous droits réservés.</p>
-                    <p style="color: red !important; font-size: 20px !important; font-weight: bold !important; background: yellow !important; padding: 10px !important;">S2NTech A FAIT CE SITE</p>
+                    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">Site développé par <strong style="color: rgba(255, 255, 255, 0.9); font-weight: 500;">S2NTech</strong></p>
                 </div>
                 <div class="footer-links">
                     <!-- Navigation links removed -->
